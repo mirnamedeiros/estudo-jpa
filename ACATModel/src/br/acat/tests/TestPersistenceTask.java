@@ -4,10 +4,9 @@
  */
 package br.acat.tests;
 
+import br.acat.jpa.EntityManagerUtil;
 import br.acat.model.Task;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -19,22 +18,21 @@ public class TestPersistenceTask {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ACATModelPU");
-        EntityManager em = emf.createEntityManager();
+        
+        EntityManager em = EntityManagerUtil.getEntityManager();
         
         Task t = new Task();
-        t.setTittle("Pochoco");
-        t.setDescription("Fazer Pochoco");
+        t.setTittle("Remedio");
+        t.setDescription("Dar remédio para Aurora");
         t.setResponsible("Mirna");
-        t.setPriority("Media");
+        t.setPriority("Alta");
         t.setFinished(Boolean.FALSE);
-        t.setDeadline("17/05/2022");
+        t.setDeadline("18/05/2022");
         
         em.getTransaction().begin();
         em.persist(t);
         em.getTransaction().commit();
         em.close();
-        emf.close();
     }
     
 }
