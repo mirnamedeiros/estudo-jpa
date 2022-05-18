@@ -7,32 +7,33 @@ package br.acat.tests;
 import br.acat.jpa.EntityManagerUtil;
 import br.acat.model.Task;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.EntityManager;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
  * @author Mirna
  */
-public class TestPersistenceTask {
+public class TestListTaskByName {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         EntityManager em = EntityManagerUtil.getEntityManager();
         
-        Task t = new Task();
-        t.setTittle("Louça");
-        t.setDescription("Lavar a louça");
-        t.setResponsible("Mirna");
-        t.setPriority("Media");
-        t.setFinished(Boolean.FALSE);
-        t.setDeadline(Calendar.getInstance());
         
-        em.getTransaction().begin();
-        em.persist(t);
-        em.getTransaction().commit();
+        try {
+            String jpql = "from Task order by description";
+            List<Task> lista = em.createQuery(jpql).getResultList();
+            for(Task t: lista) {
+                System.out.println("ID: "+t.getId()+" Tittle: "+t.getTittle()+" Priority: "+t.getPriority());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         em.close();
     }
     

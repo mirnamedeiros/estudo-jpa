@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -56,10 +58,10 @@ public class Task implements Serializable{
     @Column(name = "finished")
     private Boolean finished;
     
-    @NotBlank(message = "Deadline must be informed")
+    @Temporal(TemporalType.DATE)
     @NotNull(message = "Deadline cant be null")
     @Column(name = "deadline", nullable = false)
-    private String deadline;
+    private Calendar deadline;
 
     public Task() {
     }
@@ -112,11 +114,11 @@ public class Task implements Serializable{
         this.finished = finished;
     }
 
-    public String getDeadline() {
+    public Calendar getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
+    public void setDeadline(Calendar deadline) {
         this.deadline = deadline;
     }
 

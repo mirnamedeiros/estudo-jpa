@@ -5,6 +5,7 @@
 package br.acat.tests;
 
 import br.acat.model.Task;
+import java.util.Calendar;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,7 +33,7 @@ public class TestValidateTask {
         t.setResponsible("Mirna");
         t.setPriority("Media");
         t.setFinished(Boolean.FALSE);
-        t.setDeadline("17/05/2022");
+        t.setDeadline(Calendar.getInstance());
         
         em.getTransaction().begin();
         
